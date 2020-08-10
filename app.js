@@ -1,13 +1,19 @@
 const express = require('express')
-const app = express()
 
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 const authRoutes = require('./routes/auth')
 const analyticsRoutes = require('./routes/analytics')
 const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
+
+const app = express()
+mongoose.connect('mongodb://localhost/fullstack', {
+    useNewUrlParser : true ,
+    useUnifiedTopology : true
+}).then(()=>console.log('Mongodb connected'))
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
