@@ -2,6 +2,7 @@ const express = require('express')
 
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const passport = require('passport')
 
 const authRoutes = require('./routes/auth')
 const analyticsRoutes = require('./routes/analytics')
@@ -15,6 +16,8 @@ mongoose.connect('mongodb://localhost/fullstack', {
     useUnifiedTopology : true
 }).then(()=>console.log('Mongodb connected'))
 
+app.use(passport.initialize())
+require('./middleware/passport')(passport)
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(require('morgan')('dev'))
